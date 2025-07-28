@@ -43,7 +43,9 @@ This was developed as part of the Machine Learning mini project by team "Algo Ra
 
 ## System Architecture
 
-<img width="2823" height="3840" alt="System Architecture" src="https://github.com/user-attachments/assets/fbcb2422-4a23-443a-ab81-3a834d5a40a4" />
+
+<img src="https://github.com/user-attachments/assets/fbcb2422-4a23-443a-ab81-3a834d5a40a4" alt="System Architecture" width="600"/>
+
 
 
 
@@ -73,7 +75,7 @@ The UI is designed for simplicity and clarity. It includes:
 
 
 
-## Use Case Diagram
+### Use Case Diagram
 
 
 
@@ -87,31 +89,34 @@ The UI is designed for simplicity and clarity. It includes:
 - pip
 
 ### Clone the Repository
-
+```bash
 git clone https://github.com/chathuri2/CrickInfo.git
 cd CrickInfo
+```
 
 ### Create a Virtual Environment
-
+```bash
 python -m venv venv
 source venv/bin/activate  # Windows: venv\Scripts\activate
+```
 
 ### Install Dependencies
-
+```bash
 pip install -r requirements.txt
+```
 
 ### Run the Application 
 
 ### Backend (Flask)
-
+```bash
 cd backend
 python app.py
-
+```
 ### Frontend (Streamlit)
-
+```bash
 cd frontend
 streamlit run app.py
-
+```
 
 
 ## Team Members
