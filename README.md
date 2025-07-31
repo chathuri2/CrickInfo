@@ -120,7 +120,8 @@ streamlit run app.py
 
 
 ## Team Members
-22ug1-0323 - W.GK.De Model
+22ug1-0323 - W.GK.De Mel 
+
 22ug1-0010 - T.H.R.C Nirosha
 22ug1-0013 - T.H.R.C Nadeesha
 22ug1-0082 - H.V Rahini Nilumika
