@@ -33,7 +33,7 @@ This was developed as part of the Machine Learning mini project by team "Algo Ra
 
 | Layer        | Tools/Frameworks            |
 |--------------|-----------------------------|
-| Frontend     | Streamlit (or React)        |
+| Frontend     | Next.js        |
 | Backend      | Flask / FastAPI             |
 | ML Framework | Scikit-learn, XGBoost       |
 | Data Tools   | Pandas, BeautifulSoup       |
@@ -112,7 +112,7 @@ pip install -r requirements.txt
 cd backend
 python app.py
 ```
-### Frontend (Streamlit)
+### Frontend (Next.js)
 ```bash
 cd frontend
 streamlit run app.py
@@ -120,5 +120,15 @@ streamlit run app.py
 
 
 ## Team Members
+22ug1-0323 - W.GK.De Model
+22ug1-0010 - T.H.R.C Nirosha
+22ug1-0013 - T.H.R.C Nadeesha
+22ug1-0082 - H.V Rahini Nilumika
+22ug1-0233 - T.T.Jayasekara
+22ug1-0460 - A.V.D Amarathunga
+22ug1-0459 - S.S.D. Fernando
+22ug1-0281 - P.N.M.S.S. Wijesinghe
+22ug1-0471 - K.K.P. Bimsara
+22ug1-0472 - K.G.P. Kavishka
 
 
