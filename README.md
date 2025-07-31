@@ -120,7 +120,7 @@ streamlit run app.py
 
 
 ## Team Members
-22ug1-0323 - W.GK.De Mel 
+22ug1-0323 - W.G.K.De Mel 
 
 22ug1-0010 - T.H.R.C Nirosha
 
