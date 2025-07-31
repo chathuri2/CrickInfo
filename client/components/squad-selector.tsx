@@ -12,12 +12,22 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Badge } from "@/components/ui/badge"
 import { Search, RotateCcw, Download } from "lucide-react"
 import { useToast } from "@/hooks/use-toast"
+import { MatchFormatSelector } from "./match-format-selector"
+import { SmartSquadSuggestion } from "./smart-squad-suggestion"
+import type { MatchConditions } from "../types/player"
 
 export function SquadSelector() {
   const [players, setPlayers] = useState<Player[]>(playersDatabase)
   const [searchTerm, setSearchTerm] = useState("")
   const [roleFilter, setRoleFilter] = useState<string>("all")
   const { toast } = useToast()
+
+  const [matchConditions, setMatchConditions] = useState<MatchConditions>({
+    format: "ODI",
+    pitchType: "Balanced",
+    weather: "Sunny",
+    venue: "R. Premadasa Stadium, Colombo",
+  })
 
   const selectedPlayers = players.filter((p) => p.isSelected)
   const isSquadFull = selectedPlayers.length >= 11
@@ -106,6 +116,15 @@ export function SquadSelector() {
 
   const validationIssues = getSquadValidation()
 
+  const applySmartSuggestion = (suggestedPlayers: Player[]) => {
+    setPlayers((prev) =>
+      prev.map((player) => ({
+        ...player,
+        isSelected: suggestedPlayers.some((sp) => sp.id === player.id),
+      })),
+    )
+  }
+
   return (
     <div className="container mx-auto p-6 space-y-6">
       <div className="text-center space-y-2">
@@ -115,45 +134,55 @@ export function SquadSelector() {
 
       <div className="grid lg:grid-cols-3 gap-6">
         <div className="lg:col-span-2 space-y-4">
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Search className="w-5 h-5" />
-                Player Search & Filters
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <Input
-                placeholder="Search Sri Lankan players by name or role..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full"
-              />
+          <div className="space-y-4">
+            <MatchFormatSelector conditions={matchConditions} onConditionsChange={setMatchConditions} />
 
-              <div className="flex gap-4">
-                <Select value={roleFilter} onValueChange={setRoleFilter}>
-                  <SelectTrigger className="w-full">
-                    <SelectValue placeholder="Filter by role" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="all">All Roles</SelectItem>
-                    <SelectItem value="Batsman">Batsman</SelectItem>
-                    <SelectItem value="Bowler">Bowler</SelectItem>
-                    <SelectItem value="All-rounder">All-rounder</SelectItem>
-                    <SelectItem value="Wicket-keeper">Wicket-keeper</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
+            <SmartSquadSuggestion
+              players={players}
+              conditions={matchConditions}
+              onApplySuggestion={applySmartSuggestion}
+            />
 
-              <div className="flex justify-between items-center">
-                <div className="text-sm text-muted-foreground">Showing {filteredPlayers.length} players</div>
-                <Button variant="outline" size="sm" onClick={resetSquad}>
-                  <RotateCcw className="w-4 h-4 mr-2" />
-                  Reset Squad
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Search className="w-5 h-5" />
+                  Player Search & Filters
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <Input
+                  placeholder="Search Sri Lankan players by name or role..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className="w-full"
+                />
+
+                <div className="flex gap-4">
+                  <Select value={roleFilter} onValueChange={setRoleFilter}>
+                    <SelectTrigger className="w-full">
+                      <SelectValue placeholder="Filter by role" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="all">All Roles</SelectItem>
+                      <SelectItem value="Batsman">Batsman</SelectItem>
+                      <SelectItem value="Bowler">Bowler</SelectItem>
+                      <SelectItem value="All-rounder">All-rounder</SelectItem>
+                      <SelectItem value="Wicket-keeper">Wicket-keeper</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                <div className="flex justify-between items-center">
+                  <div className="text-sm text-muted-foreground">Showing {filteredPlayers.length} players</div>
+                  <Button variant="outline" size="sm" onClick={resetSquad}>
+                    <RotateCcw className="w-4 h-4 mr-2" />
+                    Reset Squad
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
 
           <div className="grid md:grid-cols-2 gap-4">
             {filteredPlayers.map((player) => (

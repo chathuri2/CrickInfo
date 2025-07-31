@@ -6,10 +6,14 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Badge } from "@/components/ui/badge"
 import { BarChart3, TrendingUp, Award, Users } from "lucide-react"
+import { Switch } from "@/components/ui/switch"
+import { Label } from "@/components/ui/label"
 
 export function PlayerStatistics() {
   const [sortBy, setSortBy] = useState<string>("battingAverage")
   const [roleFilter, setRoleFilter] = useState<string>("all")
+  const [showRecentForm, setShowRecentForm] = useState(false)
+  const [opponentFilter, setOpponentFilter] = useState<string>("all")
 
   const filteredAndSortedPlayers = useMemo(() => {
     let filtered = playersDatabase
@@ -74,6 +78,18 @@ export function PlayerStatistics() {
       {} as Record<string, number>,
     )
   }, [])
+
+  const opponents = [
+    "India",
+    "Australia",
+    "England",
+    "Pakistan",
+    "South Africa",
+    "New Zealand",
+    "Bangladesh",
+    "West Indies",
+    "Afghanistan",
+  ]
 
   return (
     <div className="container mx-auto p-6 space-y-6">
@@ -160,30 +176,53 @@ export function PlayerStatistics() {
         <CardHeader>
           <CardTitle>All Players</CardTitle>
           <div className="flex gap-4">
-            <Select value={roleFilter} onValueChange={setRoleFilter}>
-              <SelectTrigger className="w-48">
-                <SelectValue placeholder="Filter by role" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">All Roles</SelectItem>
-                <SelectItem value="Batsman">Batsman</SelectItem>
-                <SelectItem value="Bowler">Bowler</SelectItem>
-                <SelectItem value="All-rounder">All-rounder</SelectItem>
-                <SelectItem value="Wicket-keeper">Wicket-keeper</SelectItem>
-              </SelectContent>
-            </Select>
+            <div className="flex flex-wrap gap-4">
+              <Select value={roleFilter} onValueChange={setRoleFilter}>
+                <SelectTrigger className="w-48">
+                  <SelectValue placeholder="Filter by role" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">All Roles</SelectItem>
+                  <SelectItem value="Batsman">Batsman</SelectItem>
+                  <SelectItem value="Bowler">Bowler</SelectItem>
+                  <SelectItem value="All-rounder">All-rounder</SelectItem>
+                  <SelectItem value="Wicket-keeper">Wicket-keeper</SelectItem>
+                </SelectContent>
+              </Select>
 
-            <Select value={sortBy} onValueChange={setSortBy}>
-              <SelectTrigger className="w-48">
-                <SelectValue placeholder="Sort by" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="battingAverage">Batting Average</SelectItem>
-                <SelectItem value="bowlingAverage">Bowling Average</SelectItem>
-                <SelectItem value="matchesPlayed">Matches Played</SelectItem>
-                <SelectItem value="name">Name</SelectItem>
-              </SelectContent>
-            </Select>
+              <Select value={sortBy} onValueChange={setSortBy}>
+                <SelectTrigger className="w-48">
+                  <SelectValue placeholder="Sort by" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="battingAverage">Batting Average</SelectItem>
+                  <SelectItem value="bowlingAverage">Bowling Average</SelectItem>
+                  <SelectItem value="matchesPlayed">Matches Played</SelectItem>
+                  <SelectItem value="name">Name</SelectItem>
+                </SelectContent>
+              </Select>
+
+              <Select value={opponentFilter} onValueChange={setOpponentFilter}>
+                <SelectTrigger className="w-48">
+                  <SelectValue placeholder="Filter by opponent" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">All Opponents</SelectItem>
+                  {opponents.map((opponent) => (
+                    <SelectItem key={opponent} value={opponent}>
+                      vs {opponent}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+
+              <div className="flex items-center space-x-2">
+                <Switch id="recent-form" checked={showRecentForm} onCheckedChange={setShowRecentForm} />
+                <Label htmlFor="recent-form" className="text-sm">
+                  Recent Form (Last 5 matches)
+                </Label>
+              </div>
+            </div>
           </div>
         </CardHeader>
         <CardContent>

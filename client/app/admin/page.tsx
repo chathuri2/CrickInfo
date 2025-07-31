@@ -11,6 +11,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { playersDatabase } from "../../data/players"
 import { Users, UserPlus, Edit, Trash2, BarChart3, Shield, Database, Activity } from "lucide-react"
 import { useToast } from "@/hooks/use-toast"
+import { CSVUpload } from "../../components/csv-upload"
 
 export default function AdminPage() {
   const [players, setPlayers] = useState(playersDatabase)
@@ -77,6 +78,14 @@ export default function AdminPage() {
       default:
         return "bg-gray-100 text-gray-800"
     }
+  }
+
+  const handlePlayersUploaded = (newPlayers: any) => {
+    setPlayers((prev) => [...prev, ...newPlayers])
+    toast({
+      title: "Players Imported",
+      description: `${newPlayers.length} players have been successfully imported from CSV.`,
+    })
   }
 
   const stats = {
@@ -293,6 +302,9 @@ export default function AdminPage() {
                 </CardContent>
               </Card>
             </div>
+          </div>
+          <div className="mt-6">
+            <CSVUpload onPlayersUploaded={handlePlayersUploaded} />
           </div>
         </TabsContent>
 
