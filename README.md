@@ -115,7 +115,7 @@ python app.py
 ### Frontend (Next.js)
 ```bash
 cd frontend
-streamlit run app.py
+npm run dev
 ```
 
 
