@@ -23,17 +23,18 @@ export function SmartSquadSuggestion({ players, conditions, onApplySuggestion }:
   const generateSmartSuggestion = async () => {
     setIsGenerating(true)
 
-    // Simulate AI processing
+    // Simulate AI processing delay
     await new Promise((resolve) => setTimeout(resolve, 2000))
 
-    // Smart selection algorithm based on conditions
+    // Generate team with new logic
     const selectedPlayers = smartSelectPlayers(players, conditions)
     const reasoning = generateReasoning(conditions, selectedPlayers)
+    const confidence = calculateConfidence(selectedPlayers, conditions)
 
     const newSuggestion: SmartSuggestion = {
       recommendedPlayers: selectedPlayers,
       reasoning,
-      confidence: calculateConfidence(selectedPlayers, conditions),
+      confidence,
     }
 
     setSuggestion(newSuggestion)
@@ -48,42 +49,53 @@ export function SmartSquadSuggestion({ players, conditions, onApplySuggestion }:
   const smartSelectPlayers = (allPlayers: Player[], conditions: MatchConditions): Player[] => {
     const selected: Player[] = []
 
-    // Format-specific selection logic
-    if (conditions.format === "T20") {
-      // T20: Prefer aggressive batsmen and economical bowlers
-      const batsmen = allPlayers.filter((p) => p.role === "Batsman").slice(0, 4)
-      const allRounders = allPlayers.filter((p) => p.role === "All-rounder").slice(0, 3)
-      const bowlers = allPlayers.filter((p) => p.role === "Bowler").slice(0, 3)
-      const wicketKeeper = allPlayers.filter((p) => p.role === "Wicket-keeper").slice(0, 1)
-
-      selected.push(...batsmen, ...allRounders, ...bowlers, ...wicketKeeper)
-    } else if (conditions.format === "ODI") {
-      // ODI: Balanced approach
-      const batsmen = allPlayers.filter((p) => p.role === "Batsman").slice(0, 5)
-      const allRounders = allPlayers.filter((p) => p.role === "All-rounder").slice(0, 2)
-      const bowlers = allPlayers.filter((p) => p.role === "Bowler").slice(0, 3)
-      const wicketKeeper = allPlayers.filter((p) => p.role === "Wicket-keeper").slice(0, 1)
-
-      selected.push(...batsmen, ...allRounders, ...bowlers, ...wicketKeeper)
-    } else {
-      // Test: Prefer technique and endurance
-      const batsmen = allPlayers.filter((p) => p.role === "Batsman").slice(0, 6)
-      const allRounders = allPlayers.filter((p) => p.role === "All-rounder").slice(0, 1)
-      const bowlers = allPlayers.filter((p) => p.role === "Bowler").slice(0, 3)
-      const wicketKeeper = allPlayers.filter((p) => p.role === "Wicket-keeper").slice(0, 1)
-
-      selected.push(...batsmen, ...allRounders, ...bowlers, ...wicketKeeper)
+    // Helper function: Randomly pick n unique players from array
+    const randomPick = <T,>(arr: T[], n: number): T[] => {
+      if (arr.length <= n) return arr
+      const result: T[] = []
+      const copy = [...arr]
+      while (result.length < n && copy.length > 0) {
+        const idx = Math.floor(Math.random() * copy.length)
+        result.push(copy.splice(idx, 1)[0])
+      }
+      return result
     }
 
-    // Pitch-specific adjustments
-    if (conditions.pitchType === "Spin-friendly") {
-      // Prefer spin bowlers and players good against spin
-      const spinBowlers = allPlayers.filter(
-        (p) => (p.role === "Bowler" && p.name.includes("Jayasuriya")) || p.name.includes("Embuldeniya"),
-      )
-      // Replace some pace bowlers with spinners if available
-    }
+    // Filter players by role
+    const batsmen = allPlayers.filter((p) => p.role === "Batsman")
+    const allRounders = allPlayers.filter((p) => p.role === "All-rounder")
+    const bowlers = allPlayers.filter((p) => p.role === "Bowler")
+    const wicketKeepers = allPlayers.filter((p) => p.role === "Wicket-keeper")
 
+    // Define required counts
+    const BATSMEN_COUNT = 5
+    const ALLROUNDER_COUNT = 2
+    const BOWLER_COUNT = 4
+    const WICKET_KEEPER_COUNT = 1
+    const EXTRAS_COUNT = 3 // Extras after wicket-keeper
+
+    // Select players randomly per role
+    const selectedBatsmen = randomPick(batsmen, BATSMEN_COUNT)
+    const selectedAllRounders = randomPick(allRounders, ALLROUNDER_COUNT)
+    const selectedBowlers = randomPick(bowlers, BOWLER_COUNT)
+    const selectedWicketKeepers = randomPick(wicketKeepers, WICKET_KEEPER_COUNT)
+
+    // Collect already selected player IDs to avoid duplicates
+    const selectedIds = new Set<string>([
+      ...selectedBatsmen.map((p) => p.id),
+      ...selectedAllRounders.map((p) => p.id),
+      ...selectedBowlers.map((p) => p.id),
+      ...selectedWicketKeepers.map((p) => p.id),
+    ])
+
+    // From remaining players (not selected), pick extras
+    const remainingPlayers = allPlayers.filter((p) => !selectedIds.has(p.id))
+    const selectedExtras = randomPick(remainingPlayers, EXTRAS_COUNT)
+
+    // Compose final team
+    selected.push(...selectedBatsmen, ...selectedAllRounders, ...selectedBowlers, ...selectedWicketKeepers, ...selectedExtras)
+
+    // Safety: Limit to 11 players if somehow exceeded
     return selected.slice(0, 11)
   }
 
