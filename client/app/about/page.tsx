@@ -1,13 +1,16 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Trophy, Target, Users, BarChart3 } from "lucide-react"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Trophy, Target, Users, BarChart3 } from "lucide-react";
 
 export default function AboutPage() {
   return (
     <div className="container mx-auto p-6 space-y-8">
       <div className="text-center space-y-4">
-        <h1 className="text-4xl font-bold">About Sri Lankan Cricket Squad Selector</h1>
+        <h1 className="text-4xl font-bold">
+          About Sri Lankan Cricket Squad Selector
+        </h1>
         <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-          A comprehensive platform for cricket enthusiasts to build and analyze Sri Lankan cricket teams
+          A comprehensive platform for cricket enthusiasts to build and analyze
+          Sri Lankan cricket teams
         </p>
       </div>
 
@@ -21,12 +24,14 @@ export default function AboutPage() {
           </CardHeader>
           <CardContent className="space-y-4">
             <p>
-              To provide cricket fans, analysts, and enthusiasts with a powerful tool to explore, analyze, and create
-              Sri Lankan cricket squads based on comprehensive player statistics and performance data.
+              To provide cricket fans, analysts, and enthusiasts with a powerful
+              tool to explore, analyze, and create Sri Lankan cricket squads
+              based on comprehensive player statistics and performance data.
             </p>
             <p>
-              We believe in the power of data-driven decision making in cricket team selection, while also honoring the
-              rich tradition and talent of Sri Lankan cricket.
+              We believe in the power of data-driven decision making in cricket
+              team selection, while also honoring the rich tradition and talent
+              of Sri Lankan cricket.
             </p>
           </CardContent>
         </Card>
@@ -73,7 +78,8 @@ export default function AboutPage() {
               </div>
               <h3 className="font-semibold">Browse Players</h3>
               <p className="text-sm text-muted-foreground">
-                Explore our comprehensive database of Sri Lankan cricketers with detailed statistics
+                Explore our comprehensive database of Sri Lankan cricketers with
+                detailed statistics
               </p>
             </div>
 
@@ -83,7 +89,8 @@ export default function AboutPage() {
               </div>
               <h3 className="font-semibold">Select Squad</h3>
               <p className="text-sm text-muted-foreground">
-                Choose 11 players using our intelligent filtering and validation system
+                Choose 11 players using our intelligent filtering and validation
+                system
               </p>
             </div>
 
@@ -93,7 +100,8 @@ export default function AboutPage() {
               </div>
               <h3 className="font-semibold">Analyze & Export</h3>
               <p className="text-sm text-muted-foreground">
-                Review team composition and export your squad for further analysis
+                Review team composition and export your squad for further
+                analysis
               </p>
             </div>
           </div>
@@ -108,19 +116,27 @@ export default function AboutPage() {
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
             <div className="p-4 bg-blue-50 rounded-lg text-center">
               <h3 className="font-semibold text-blue-800">Batsmen</h3>
-              <p className="text-sm text-blue-600 mt-1">Specialist batting players</p>
+              <p className="text-sm text-blue-600 mt-1">
+                Specialist batting players
+              </p>
             </div>
             <div className="p-4 bg-red-50 rounded-lg text-center">
               <h3 className="font-semibold text-red-800">Bowlers</h3>
-              <p className="text-sm text-red-600 mt-1">Specialist bowling players</p>
+              <p className="text-sm text-red-600 mt-1">
+                Specialist bowling players
+              </p>
             </div>
             <div className="p-4 bg-green-50 rounded-lg text-center">
               <h3 className="font-semibold text-green-800">All-rounders</h3>
-              <p className="text-sm text-green-600 mt-1">Players skilled in both batting and bowling</p>
+              <p className="text-sm text-green-600 mt-1">
+                Players skilled in both batting and bowling
+              </p>
             </div>
             <div className="p-4 bg-purple-50 rounded-lg text-center">
               <h3 className="font-semibold text-purple-800">Wicket-keepers</h3>
-              <p className="text-sm text-purple-600 mt-1">Specialist wicket-keeping players</p>
+              <p className="text-sm text-purple-600 mt-1">
+                Specialist wicket-keeping players
+              </p>
             </div>
           </div>
         </CardContent>
@@ -132,15 +148,18 @@ export default function AboutPage() {
         </CardHeader>
         <CardContent className="space-y-4">
           <p>
-            Our player database includes statistics from international cricket matches, including Test matches, ODIs,
-            and T20 internationals. All statistics are sourced from official cricket records and are regularly updated.
+            Our player database includes statistics from international cricket
+            matches, including Test matches, ODIs, and T20 internationals. All
+            statistics are sourced from official cricket records and are
+            regularly updated.
           </p>
           <p>
-            The application focuses exclusively on Sri Lankan cricketers who have represented or are eligible to
-            represent the national team, providing a comprehensive view of the country's cricket talent pool.
+            The application focuses exclusively on Sri Lankan cricketers who
+            have represented or are eligible to represent the national team,
+            providing a comprehensive view of the country's cricket talent pool.
           </p>
         </CardContent>
       </Card>
     </div>
-  )
+  );
 }
