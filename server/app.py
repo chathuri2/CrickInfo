@@ -8,6 +8,8 @@ import os
 from dotenv import load_dotenv
 import pandas as pd
 import joblib
+import jwt
+import datetime
 
 # Load environment variables
 load_dotenv()
@@ -39,10 +41,10 @@ def create_app():
     app = Flask(__name__)
 
     # Configuration
-    app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'your-secret-key-change-in-production')
+    app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'supersecretkey')
     app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', 'sqlite:///crickinfo.db')
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-    app.config['JWT_SECRET_KEY'] = os.environ.get('JWT_SECRET_KEY', 'jwt-secret-key-change-in-production')
+    app.config['JWT_SECRET_KEY'] = os.environ.get('JWT_SECRET_KEY', 'jwt-supersecretkey')
     app.config['JWT_ACCESS_TOKEN_EXPIRES'] = 3600  # 1 hour
 
     # Initialize extensions with app
@@ -72,7 +74,7 @@ def create_app():
     def index():
         return {"message": "CrickInfo API is running."}
 
-    # 🔮 Prediction Endpoint
+    # Prediction Endpoint
     @app.route("/api/predict", methods=["POST"])
     def predict():
         try:
@@ -105,7 +107,7 @@ def create_app():
     @app.errorhandler(500)
     def internal_error(error):
         return {'error': 'Internal server error'}, 500
-
+    
     return app
 
 if __name__ == '__main__':

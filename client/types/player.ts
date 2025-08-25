@@ -1,13 +1,17 @@
-export interface Player {
+export type Player = {
   id: string
   name: string
   role: "Batsman" | "Bowler" | "All-rounder" | "Wicket-keeper"
-  battingAverage?: number
-  bowlingAverage?: number
-  matchesPlayed: number
   country: string
   isSelected: boolean
+  stats: {
+    t20?: PlayerStats
+    odi?: PlayerStats
+    test?: PlayerStats
+  }
 }
+
+
 
 export type MatchFormat = "T20" | "ODI" | "Test"
 export type PitchType = "Batting" | "Bowling" | "Balanced" | "Spin-friendly" | "Pace-friendly"
@@ -20,13 +24,12 @@ export interface MatchConditions {
   venue: string
 }
 
-export interface PlayerStats {
-  format: MatchFormat
-  battingAverage?: number
+export type PlayerStats = {
+  battingAverage: number
+  strikeRate: number
+  matchesPlayed: number
   bowlingAverage?: number
-  strikeRate?: number
-  economyRate?: number
-  recentForm: number // Last 5 matches average
+  bowlingEconomy?: number
 }
 
 export interface PlayerComparison {

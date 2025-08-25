@@ -55,37 +55,57 @@ export default function SignUpPage() {
     return true
   }
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setIsLoading(true)
-    setError("")
+const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault()
+  setIsLoading(true)
+  setError("")
+  setSuccess(false)
 
-    if (!validateForm()) {
-      setIsLoading(false)
-      return
-    }
-
-    try {
-      // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 2000))
-
-      // Mock successful registration
-      setSuccess(true)
-      toast({
-        title: "Account created successfully!",
-        description: "Welcome to CrickInfo. You can now sign in to your account.",
-      })
-
-      // Redirect after a short delay
-      setTimeout(() => {
-        router.push("/auth/signin")
-      }, 2000)
-    } catch (err) {
-      setError("An error occurred during registration")
-    } finally {
-      setIsLoading(false)
-    }
+  if (!validateForm()) {
+    setIsLoading(false)
+    return
   }
+
+  try {
+    // Build payload for backend
+    const payload = {
+      username: `${form.firstName}${form.lastName}`.toLowerCase(),
+      email: form.email,
+      password: form.password,
+    }
+
+    // Call backend /register
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/register`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    })
+
+    if (!response.ok) {
+      const errData = await response.json()
+      throw new Error(errData.error || "Registration failed")
+    }
+
+    const data = await response.json()
+    console.log("Signup response:", data)
+
+    setSuccess(true)
+    toast({
+      title: "Account created successfully!",
+      description: "Welcome to CrickInfo. You can now sign in to your account.",
+    })
+
+    // Redirect after a short delay
+    setTimeout(() => {
+      router.push("/auth/signin")
+    }, 2000)
+  } catch (err: any) {
+    setError(err.message || "An error occurred during registration")
+  } finally {
+    setIsLoading(false)
+  }
+}
+
 
   const countries = [
     "Sri Lanka",
