@@ -6,7 +6,7 @@
 
 This mini project is a data-driven web application designed to assist in the selection of optimal Sri Lankan cricket squads for various match types using machine learning algorithms. The system enables users to input match-specific conditions (such as format and pitch type) and receive a recommended player squad based on historical performance data and selection logic (e.g. ODI, Test).
 
-This was developed as part of the Machine Learning mini project by team "Algo Rangers".
+This was developed as part of the Machine Learning mini project by team "Algo Rangers"
 
 
 
