@@ -6,249 +6,342 @@ export const playersDatabase: Player[] = [
     id: "1",
     name: "Charith Asalanka",
     role: "Batsman",
-    battingAverage: 28.75,
-    matchesPlayed: 8,
     country: "Sri Lanka",
     isSelected: false,
+    stats: {
+      t20: { battingAverage: 28.7, strikeRate: 130.5, matchesPlayed: 8 },
+      odi: { battingAverage: 32.1, strikeRate: 95.0, matchesPlayed: 15 },
+      test: { battingAverage: 36.0, strikeRate: 50.0, matchesPlayed: 10 }
+    }
   },
   {
     id: "2",
     name: "Pathum Nissanka",
     role: "Batsman",
-    battingAverage: 33.89,
-    matchesPlayed: 18,
     country: "Sri Lanka",
     isSelected: false,
+    stats: {
+      t20: { battingAverage: 33.8, strikeRate: 120.0, matchesPlayed: 18 },
+      odi: { battingAverage: 36.2, strikeRate: 85.0, matchesPlayed: 20 },
+      test: { battingAverage: 41.0, strikeRate: 50.3, matchesPlayed: 10 }
+    }
   },
   {
     id: "3",
     name: "Kusal Mendis",
-    role: "Batsman",
-    battingAverage: 35.84,
-    matchesPlayed: 57,
+    role: "Wicket-keeper",
     country: "Sri Lanka",
     isSelected: false,
+    stats: {
+      t20: { battingAverage: 35.8, strikeRate: 125.0, matchesPlayed: 57 },
+      odi: { battingAverage: 38.0, strikeRate: 90.2, matchesPlayed: 45 },
+      test: { battingAverage: 33.5, strikeRate: 52.1, matchesPlayed: 30 }
+    }
   },
-  { 
-    id: "4", 
-    name: "Avishka Fernando", 
-    role: "Batsman", 
-    battingAverage: 31.8, 
-    matchesPlayed: 51, 
-    country: "Sri Lanka", 
-    isSelected: false 
+  {
+    id: "4",
+    name: "Avishka Fernando",
+    role: "Batsman",
+    country: "Sri Lanka",
+    isSelected: false,
+    stats: {
+      t20: { battingAverage: 31.8, strikeRate: 128.0, matchesPlayed: 51 },
+      odi: { battingAverage: 35.0, strikeRate: 86.0, matchesPlayed: 40 },
+      test: { battingAverage: 30.2, strikeRate: 54.5, matchesPlayed: 20 }
+    }
   },
   {
     id: "5",
     name: "Dimuth Karunaratne",
     role: "Batsman",
-    battingAverage: 38.96,
-    matchesPlayed: 93,
     country: "Sri Lanka",
     isSelected: false,
+    stats: {
+      t20: { battingAverage: 38.9, strikeRate: 75.0, matchesPlayed: 93 },
+      odi: { battingAverage: 41.0, strikeRate: 78.0, matchesPlayed: 80 },
+      test: { battingAverage: 47.5, strikeRate: 50.0, matchesPlayed: 90 }
+    }
   },
   {
     id: "6",
     name: "Dhananjaya de Silva",
     role: "All-rounder",
-    battingAverage: 41.71,
-    bowlingAverage: 42.5,
-    matchesPlayed: 45,
     country: "Sri Lanka",
     isSelected: false,
+    stats: {
+      t20: { battingAverage: 41.7, strikeRate: 90.0, matchesPlayed: 45, bowlingAverage: 42.5, bowlingEconomy: 4.5 },
+      odi: { battingAverage: 38.0, strikeRate: 80.0, matchesPlayed: 50, bowlingAverage: 40.0, bowlingEconomy: 5.0 },
+      test: { battingAverage: 37.5, strikeRate: 55.0, matchesPlayed: 30, bowlingAverage: 45.0, bowlingEconomy: 3.5 }
+    }
   },
   {
     id: "7",
     name: "Oshada Fernando",
     role: "Batsman",
-    battingAverage: 35.42,
-    matchesPlayed: 12,
     country: "Sri Lanka",
     isSelected: false,
+    stats: {
+      t20: { battingAverage: 35.4, strikeRate: 130.0, matchesPlayed: 12 },
+      odi: { battingAverage: 38.0, strikeRate: 85.0, matchesPlayed: 20 },
+      test: { battingAverage: 32.0, strikeRate: 50.0, matchesPlayed: 10 }
+    }
   },
   {
     id: "8",
     name: "Kamindu Mendis",
     role: "All-rounder",
-    battingAverage: 47.5,
-    bowlingAverage: 28.33,
-    matchesPlayed: 6,
     country: "Sri Lanka",
     isSelected: false,
+    stats: {
+      t20: { battingAverage: 47.5, strikeRate: 125.0, matchesPlayed: 6, bowlingAverage: 28.3, bowlingEconomy: 6.5 },
+      odi: { battingAverage: 42.0, strikeRate: 90.0, matchesPlayed: 10, bowlingAverage: 30.0, bowlingEconomy: 5.5 },
+      test: { battingAverage: 35.0, strikeRate: 50.0, matchesPlayed: 5, bowlingAverage: 32.0, bowlingEconomy: 3.8 }
+    }
   },
   {
     id: "9",
     name: "Nishan Madushka",
     role: "Batsman",
-    battingAverage: 28.5,
-    matchesPlayed: 4,
     country: "Sri Lanka",
     isSelected: false,
+    stats: {
+      t20: { battingAverage: 28.5, strikeRate: 128.0, matchesPlayed: 4 },
+      odi: { battingAverage: 32.0, strikeRate: 85.0, matchesPlayed: 6 },
+      test: { battingAverage: 25.0, strikeRate: 50.0, matchesPlayed: 3 }
+    }
   },
-  
-
-  // All-rounders
   {
     id: "10",
-    name: "Wanindu Hasaranga",
-    role: "All-rounder",
-    battingAverage: 18.5,
-    bowlingAverage: 26.4,
-    matchesPlayed: 10,
+    name: "Dinesh Chandimal",
+    role: "Wicket-keeper",
     country: "Sri Lanka",
     isSelected: false,
+    stats: {
+      t20: { battingAverage: 42.4, strikeRate: 85.0, matchesPlayed: 73 },
+      odi: { battingAverage: 39.0, strikeRate: 78.0, matchesPlayed: 60 },
+      test: { battingAverage: 36.0, strikeRate: 50.0, matchesPlayed: 45 }
+    }
   },
   {
     id: "11",
-    name: "Chamika Karunaratne",
-    role: "All-rounder",
-    battingAverage: 22.33,
-    bowlingAverage: 35.71,
-    matchesPlayed: 9,
+    name: "Niroshan Dickwella",
+    role: "Wicket-keeper",
     country: "Sri Lanka",
     isSelected: false,
+    stats: {
+      t20: { battingAverage: 31.7, strikeRate: 120.0, matchesPlayed: 47 },
+      odi: { battingAverage: 33.5, strikeRate: 82.0, matchesPlayed: 35 },
+      test: { battingAverage: 30.0, strikeRate: 48.0, matchesPlayed: 25 }
+    }
   },
   {
     id: "12",
-    name: "Dunith Wellalage",
-    role: "All-rounder",
-    battingAverage: 25.0,
-    bowlingAverage: 32.5,
-    matchesPlayed: 4,
+    name: "Sadeera Samarawickrama",
+    role: "Wicket-keeper",
     country: "Sri Lanka",
     isSelected: false,
+    stats: {
+      t20: { battingAverage: 35.5, strikeRate: 110.0, matchesPlayed: 8 },
+      odi: { battingAverage: 36.0, strikeRate: 80.0, matchesPlayed: 12 },
+      test: { battingAverage: 32.0, strikeRate: 50.0, matchesPlayed: 5 }
+    }
   },
   {
     id: "13",
-    name: "Ramesh Mendis",
-    role: "All-rounder",
-    battingAverage: 19.83,
-    bowlingAverage: 35.42,
-    matchesPlayed: 12,
+    name: "Kusal Janith Perera",
+    role: "Wicket-keeper",
     country: "Sri Lanka",
     isSelected: false,
+    stats: {
+      t20: { battingAverage: 34.4, strikeRate: 135.0, matchesPlayed: 25 },
+      odi: { battingAverage: 37.0, strikeRate: 90.0, matchesPlayed: 30 },
+      test: { battingAverage: 33.0, strikeRate: 50.0, matchesPlayed: 15 }
+    }
   },
+
+  // All-rounders
   {
     id: "14",
-    name: "Dasun Shanaka",
+    name: "Wanindu Hasaranga",
     role: "All-rounder",
-    battingAverage: 26.75,
-    bowlingAverage: 42.0,
-    matchesPlayed: 4,
     country: "Sri Lanka",
     isSelected: false,
+    stats: {
+      t20: { battingAverage: 18.5, strikeRate: 125.0, matchesPlayed: 10, bowlingAverage: 26.4, bowlingEconomy: 7.5 },
+      odi: { battingAverage: 20.0, strikeRate: 90.0, matchesPlayed: 12, bowlingAverage: 28.0, bowlingEconomy: 5.5 },
+      test: { battingAverage: 22.0, strikeRate: 50.0, matchesPlayed: 8, bowlingAverage: 30.0, bowlingEconomy: 3.8 }
+    }
+  },
+  {
+    id: "15",
+    name: "Chamika Karunaratne",
+    role: "All-rounder",
+    country: "Sri Lanka",
+    isSelected: false,
+    stats: {
+      t20: { battingAverage: 22.3, strikeRate: 120.0, matchesPlayed: 9, bowlingAverage: 35.7, bowlingEconomy: 6.5 },
+      odi: { battingAverage: 24.0, strikeRate: 85.0, matchesPlayed: 10, bowlingAverage: 36.0, bowlingEconomy: 5.0 },
+      test: { battingAverage: 25.0, strikeRate: 50.0, matchesPlayed: 5, bowlingAverage: 37.0, bowlingEconomy: 4.0 }
+    }
+  },
+  {
+    id: "16",
+    name: "Dunith Wellalage",
+    role: "All-rounder",
+    country: "Sri Lanka",
+    isSelected: false,
+    stats: {
+      t20: { battingAverage: 25.0, strikeRate: 110.0, matchesPlayed: 4, bowlingAverage: 32.5, bowlingEconomy: 5.5 },
+      odi: { battingAverage: 26.0, strikeRate: 90.0, matchesPlayed: 6, bowlingAverage: 34.0, bowlingEconomy: 4.8 },
+      test: { battingAverage: 28.0, strikeRate: 50.0, matchesPlayed: 3, bowlingAverage: 36.0, bowlingEconomy: 3.8 }
+    }
+  },
+  {
+    id: "17",
+    name: "Ramesh Mendis",
+    role: "All-rounder",
+    country: "Sri Lanka",
+    isSelected: false,
+    stats: {
+      t20: { battingAverage: 19.8, strikeRate: 105.0, matchesPlayed: 12, bowlingAverage: 35.4, bowlingEconomy: 5.8 },
+      odi: { battingAverage: 22.0, strikeRate: 85.0, matchesPlayed: 15, bowlingAverage: 36.0, bowlingEconomy: 4.5 },
+      test: { battingAverage: 24.0, strikeRate: 50.0, matchesPlayed: 10, bowlingAverage: 38.0, bowlingEconomy: 3.9 }
+    }
+  },
+  {
+    id: "18",
+    name: "Dasun Shanaka",
+    role: "All-rounder",
+    country: "Sri Lanka",
+    isSelected: false,
+    stats: {
+      t20: { battingAverage: 26.7, strikeRate: 135.0, matchesPlayed: 4, bowlingAverage: 42.0, bowlingEconomy: 8.0 },
+      odi: { battingAverage: 28.0, strikeRate: 90.0, matchesPlayed: 5, bowlingAverage: 44.0, bowlingEconomy: 6.5 },
+      test: { battingAverage: 30.0, strikeRate: 50.0, matchesPlayed: 2, bowlingAverage: 46.0, bowlingEconomy: 4.0 }
+    }
   },
 
   // Bowlers
   {
-    id: "15",
+    id: "19",
     name: "Lasith Embuldeniya",
     role: "Bowler",
-    bowlingAverage: 28.36,
-    matchesPlayed: 17,
     country: "Sri Lanka",
     isSelected: false,
-  },
-  {
-    id: "16",
-    name: "Vishwa Fernando",
-    role: "Bowler",
-    bowlingAverage: 29.84,
-    matchesPlayed: 25,
-    country: "Sri Lanka",
-    isSelected: false,
-  },
-  {
-    id: "17",
-    name: "Kasun Rajitha",
-    role: "Bowler",
-    bowlingAverage: 32.45,
-    matchesPlayed: 15,
-    country: "Sri Lanka",
-    isSelected: false,
-  },
-  {
-    id: "18",
-    name: "Prabath Jayasuriya",
-    role: "Bowler",
-    bowlingAverage: 22.63,
-    matchesPlayed: 12,
-    country: "Sri Lanka",
-    isSelected: false,
-  },
-  {
-    id: "19",
-    name: "Asitha Fernando",
-    role: "Bowler",
-    bowlingAverage: 25.89,
-    matchesPlayed: 11,
-    country: "Sri Lanka",
-    isSelected: false,
+    stats: {
+      t20: { battingAverage: 12.0, strikeRate: 70.0, matchesPlayed: 17, bowlingAverage: 28.3, bowlingEconomy: 3.8 },
+      odi: { battingAverage: 14.0, strikeRate: 65.0, matchesPlayed: 15, bowlingAverage: 30.0, bowlingEconomy: 4.0 },
+      test: { battingAverage: 15.0, strikeRate: 50.0, matchesPlayed: 25, bowlingAverage: 27.0, bowlingEconomy: 3.5 }
+    }
   },
   {
     id: "20",
-    name: "Dilshan Madushanka",
+    name: "Vishwa Fernando",
     role: "Bowler",
-    bowlingAverage: 28.5,
-    matchesPlayed: 6,
     country: "Sri Lanka",
     isSelected: false,
+    stats: {
+      t20: { battingAverage: 10.0, strikeRate: 60.0, matchesPlayed: 25, bowlingAverage: 29.8, bowlingEconomy: 4.2 },
+      odi: { battingAverage: 12.0, strikeRate: 55.0, matchesPlayed: 20, bowlingAverage: 31.0, bowlingEconomy: 4.0 },
+      test: { battingAverage: 14.0, strikeRate: 50.0, matchesPlayed: 18, bowlingAverage: 28.0, bowlingEconomy: 3.8 }
+    }
   },
   {
     id: "21",
-    name: "Nuwan Thushara",
+    name: "Kasun Rajitha",
     role: "Bowler",
-    bowlingAverage: 31.2,
-    matchesPlayed: 5,
     country: "Sri Lanka",
     isSelected: false,
+    stats: {
+      t20: { battingAverage: 11.0, strikeRate: 65.0, matchesPlayed: 15, bowlingAverage: 32.4, bowlingEconomy: 4.5 },
+      odi: { battingAverage: 12.5, strikeRate: 60.0, matchesPlayed: 12, bowlingAverage: 34.0, bowlingEconomy: 4.8 },
+      test: { battingAverage: 13.0, strikeRate: 50.0, matchesPlayed: 10, bowlingAverage: 30.0, bowlingEconomy: 4.2 }
+    }
   },
-  { 
-    id: "22", 
-    name: "Nishan Madushka", 
-    role: "Batsman", 
-    battingAverage: 28.5,
-    matchesPlayed: 4,
-    country: "Sri Lanka", 
-    isSelected: false 
+  {
+    id: "22",
+    name: "Prabath Jayasuriya",
+    role: "Bowler",
+    country: "Sri Lanka",
+    isSelected: false,
+    stats: {
+      t20: { battingAverage: 12.5, strikeRate: 55.0, matchesPlayed: 12, bowlingAverage: 22.6, bowlingEconomy: 3.5 },
+      odi: { battingAverage: 14.0, strikeRate: 50.0, matchesPlayed: 10, bowlingAverage: 25.0, bowlingEconomy: 3.8 },
+      test: { battingAverage: 15.0, strikeRate: 50.0, matchesPlayed: 8, bowlingAverage: 23.0, bowlingEconomy: 3.4 }
+    }
   },
-
-  // Wicket-keepers
   {
     id: "23",
-    name: "Dinesh Chandimal",
-    role: "Wicket-keeper",
-    battingAverage: 42.49,
-    matchesPlayed: 73,
+    name: "Asitha Fernando",
+    role: "Bowler",
     country: "Sri Lanka",
     isSelected: false,
+    stats: {
+      t20: { battingAverage: 11.0, strikeRate: 60.0, matchesPlayed: 11, bowlingAverage: 25.8, bowlingEconomy: 3.9 },
+      odi: { battingAverage: 12.0, strikeRate: 55.0, matchesPlayed: 12, bowlingAverage: 28.0, bowlingEconomy: 4.0 },
+      test: { battingAverage: 14.0, strikeRate: 50.0, matchesPlayed: 10, bowlingAverage: 27.0, bowlingEconomy: 3.8 }
+    }
   },
   {
     id: "24",
-    name: "Niroshan Dickwella",
-    role: "Wicket-keeper",
-    battingAverage: 31.71,
-    matchesPlayed: 47,
+    name: "Dilshan Madushanka",
+    role: "Bowler",
     country: "Sri Lanka",
     isSelected: false,
+    stats: {
+      t20: { battingAverage: 10.0, strikeRate: 60.0, matchesPlayed: 6, bowlingAverage: 28.5, bowlingEconomy: 4.0 },
+      odi: { battingAverage: 12.0, strikeRate: 55.0, matchesPlayed: 8, bowlingAverage: 30.0, bowlingEconomy: 4.2 },
+      test: { battingAverage: 13.0, strikeRate: 50.0, matchesPlayed: 4, bowlingAverage: 29.0, bowlingEconomy: 3.9 }
+    }
   },
   {
     id: "25",
-    name: "Sadeera Samarawickrama",
-    role: "Wicket-keeper",
-    battingAverage: 35.5,
-    matchesPlayed: 8,
+    name: "Nuwan Thushara",
+    role: "Bowler",
     country: "Sri Lanka",
     isSelected: false,
-  },
-  {
-    id: "26",
-    name: "Kusal Janith Perera",
-    role: "Wicket-keeper",
-    battingAverage: 34.4,
-    matchesPlayed: 25,
-    country: "Sri Lanka",
-    isSelected: false,
+    stats: {
+      t20: { battingAverage: 11.0, strikeRate: 65.0, matchesPlayed: 5, bowlingAverage: 31.2, bowlingEconomy: 4.3 },
+      odi: { battingAverage: 12.0, strikeRate: 60.0, matchesPlayed: 6, bowlingAverage: 33.0, bowlingEconomy: 4.5 },
+      test: { battingAverage: 13.0, strikeRate: 50.0, matchesPlayed: 4, bowlingAverage: 32.0, bowlingEconomy: 4.1 }
+    }
   },
 
+  // New Players
+  {
+    id: "26",
+    name: "Matheesha Pathirana",
+    role: "Bowler",
+    country: "Sri Lanka",
+    isSelected: false,
+    stats: {
+      t20: { battingAverage: 10.0, strikeRate: 60.0, matchesPlayed: 8, bowlingAverage: 25.5, bowlingEconomy: 4.2 },
+      odi: { battingAverage: 12.0, strikeRate: 55.0, matchesPlayed: 10, bowlingAverage: 27.0, bowlingEconomy: 4.3 },
+      test: { battingAverage: 13.0, strikeRate: 50.0, matchesPlayed: 5, bowlingAverage: 30.0, bowlingEconomy: 4.0 }
+    }
+  },
+  {
+    id: "27",
+    name: "Ramesh Fernando",
+    role: "Batsman",
+    country: "Sri Lanka",
+    isSelected: false,
+    stats: {
+      t20: { battingAverage: 29.8, strikeRate: 125.0, matchesPlayed: 5 },
+      odi: { battingAverage: 31.0, strikeRate: 85.0, matchesPlayed: 8 },
+      test: { battingAverage: 27.0, strikeRate: 50.0, matchesPlayed: 3 }
+    }
+  },
+  {
+    id: "28",
+    name: "Praveen Jayawickrama",
+    role: "All-rounder",
+    country: "Sri Lanka",
+    isSelected: false,
+    stats: {
+      t20: { battingAverage: 20.5, strikeRate: 100.0, matchesPlayed: 6, bowlingAverage: 27.3, bowlingEconomy: 4.5 },
+      odi: { battingAverage: 22.0, strikeRate: 85.0, matchesPlayed: 8, bowlingAverage: 28.0, bowlingEconomy: 4.7 },
+      test: { battingAverage: 25.0, strikeRate: 50.0, matchesPlayed: 4, bowlingAverage: 30.0, bowlingEconomy: 4.2 }
+    }
+  }
 ]

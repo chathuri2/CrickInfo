@@ -9,7 +9,10 @@ import { BarChart3, TrendingUp, Award, Users } from "lucide-react"
 import { Switch } from "@/components/ui/switch"
 import { Label } from "@/components/ui/label"
 
+type Format = "t20" | "odi" | "test"
+
 export function PlayerStatistics() {
+  const [format, setFormat] = useState<Format>("t20")
   const [sortBy, setSortBy] = useState<string>("battingAverage")
   const [roleFilter, setRoleFilter] = useState<string>("all")
   const [showRecentForm, setShowRecentForm] = useState(false)
@@ -23,31 +26,46 @@ export function PlayerStatistics() {
     }
 
     return filtered.sort((a, b) => {
+      const statsA = a.stats?.[format] || { battingAverage: 0, bowlingAverage: 100, matchesPlayed: 0 }
+      const statsB = b.stats?.[format] || { battingAverage: 0, bowlingAverage: 100, matchesPlayed: 0 }
+
       switch (sortBy) {
         case "battingAverage":
-          return (b.battingAverage || 0) - (a.battingAverage || 0)
+          return (statsB.battingAverage || 0) - (statsA.battingAverage || 0)
         case "bowlingAverage":
-          return (a.bowlingAverage || 100) - (b.bowlingAverage || 100) // Lower is better for bowling
+          return (statsA.bowlingAverage || 100) - (statsB.bowlingAverage || 100) // Lower is better
         case "matchesPlayed":
-          return b.matchesPlayed - a.matchesPlayed
+          return (statsB.matchesPlayed || 0) - (statsA.matchesPlayed || 0)
         case "name":
           return a.name.localeCompare(b.name)
         default:
           return 0
       }
     })
-  }, [sortBy, roleFilter])
+  }, [sortBy, roleFilter, format])
 
   const getTopPerformers = () => {
-    const topBatsman = playersDatabase
-      .filter((p) => p.battingAverage)
-      .sort((a, b) => (b.battingAverage || 0) - (a.battingAverage || 0))[0]
+    const topBatsman =
+      playersDatabase
+        .filter((p) => p.stats?.[format]?.battingAverage !== undefined)
+        .sort(
+          (a, b) =>
+            (b.stats?.[format]?.battingAverage || 0) - (a.stats?.[format]?.battingAverage || 0)
+        )[0] || null
 
-    const topBowler = playersDatabase
-      .filter((p) => p.bowlingAverage)
-      .sort((a, b) => (a.bowlingAverage || 100) - (b.bowlingAverage || 100))[0]
+    const topBowler =
+      playersDatabase
+        .filter((p) => p.stats?.[format]?.bowlingAverage !== undefined)
+        .sort(
+          (a, b) =>
+            (a.stats?.[format]?.bowlingAverage || 100) - (b.stats?.[format]?.bowlingAverage || 100)
+        )[0] || null
 
-    const mostExperienced = playersDatabase.sort((a, b) => b.matchesPlayed - a.matchesPlayed)[0]
+    const mostExperienced =
+      playersDatabase
+        .sort(
+          (a, b) => (b.stats?.[format]?.matchesPlayed || 0) - (a.stats?.[format]?.matchesPlayed || 0)
+        )[0] || null
 
     return { topBatsman, topBowler, mostExperienced }
   }
@@ -75,7 +93,7 @@ export function PlayerStatistics() {
         acc[player.role] = (acc[player.role] || 0) + 1
         return acc
       },
-      {} as Record<string, number>,
+      {} as Record<string, number>
     )
   }, [])
 
@@ -93,9 +111,18 @@ export function PlayerStatistics() {
 
   return (
     <div className="container mx-auto p-6 space-y-6">
-      <div className="text-center space-y-2">
-        <h1 className="text-4xl font-bold">Player Statistics</h1>
-        <p className="text-muted-foreground">Comprehensive analysis of Sri Lankan cricket players</p>
+      {/* Format Selection */}
+      <div className="flex justify-center gap-4 mb-4">
+        <Select value={format} onValueChange={(val) => setFormat(val as Format)}>
+          <SelectTrigger className="w-48">
+            <SelectValue placeholder="Select Format" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="t20">T20</SelectItem>
+            <SelectItem value="odi">ODI</SelectItem>
+            <SelectItem value="test">Test</SelectItem>
+          </SelectContent>
+        </Select>
       </div>
 
       {/* Top Performers */}
@@ -109,8 +136,8 @@ export function PlayerStatistics() {
           </CardHeader>
           <CardContent>
             <div className="space-y-2">
-              <h3 className="font-semibold text-lg">{topBatsman.name}</h3>
-              <p className="text-2xl font-bold text-blue-600">{topBatsman.battingAverage}</p>
+              <h3 className="font-semibold text-lg">{topBatsman?.name || "N/A"}</h3>
+              <p className="text-2xl font-bold text-blue-600">{topBatsman?.stats?.[format]?.battingAverage ?? "N/A"}</p>
               <p className="text-sm text-muted-foreground">Batting Average</p>
             </div>
           </CardContent>
@@ -125,8 +152,8 @@ export function PlayerStatistics() {
           </CardHeader>
           <CardContent>
             <div className="space-y-2">
-              <h3 className="font-semibold text-lg">{topBowler.name}</h3>
-              <p className="text-2xl font-bold text-red-600">{topBowler.bowlingAverage}</p>
+              <h3 className="font-semibold text-lg">{topBowler?.name || "N/A"}</h3>
+              <p className="text-2xl font-bold text-red-600">{topBowler?.stats?.[format]?.bowlingAverage ?? "N/A"}</p>
               <p className="text-sm text-muted-foreground">Bowling Average</p>
             </div>
           </CardContent>
@@ -141,88 +168,43 @@ export function PlayerStatistics() {
           </CardHeader>
           <CardContent>
             <div className="space-y-2">
-              <h3 className="font-semibold text-lg">{mostExperienced.name}</h3>
-              <p className="text-2xl font-bold text-green-600">{mostExperienced.matchesPlayed}</p>
+              <h3 className="font-semibold text-lg">{mostExperienced?.name || "N/A"}</h3>
+              <p className="text-2xl font-bold text-green-600">{mostExperienced?.stats?.[format]?.matchesPlayed ?? "N/A"}</p>
               <p className="text-sm text-muted-foreground">Matches Played</p>
             </div>
           </CardContent>
         </Card>
       </div>
 
-      {/* Role Distribution */}
-      <Card>
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <BarChart3 className="w-5 h-5" />
-            Player Role Distribution
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {Object.entries(roleStats).map(([role, count]) => (
-              <div key={role} className="text-center p-4 bg-gray-50 rounded-lg">
-                <div className="text-2xl font-bold">{count}</div>
-                <Badge className={getRoleColor(role)} variant="secondary">
-                  {role}
-                </Badge>
-              </div>
-            ))}
-          </div>
-        </CardContent>
-      </Card>
-
-      {/* Player List with Filters */}
+      {/* Player List */}
       <Card>
         <CardHeader>
           <CardTitle>All Players</CardTitle>
-          <div className="flex gap-4">
-            <div className="flex flex-wrap gap-4">
-              <Select value={roleFilter} onValueChange={setRoleFilter}>
-                <SelectTrigger className="w-48">
-                  <SelectValue placeholder="Filter by role" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="all">All Roles</SelectItem>
-                  <SelectItem value="Batsman">Batsman</SelectItem>
-                  <SelectItem value="Bowler">Bowler</SelectItem>
-                  <SelectItem value="All-rounder">All-rounder</SelectItem>
-                  <SelectItem value="Wicket-keeper">Wicket-keeper</SelectItem>
-                </SelectContent>
-              </Select>
+          <div className="flex gap-4 mt-2 flex-wrap">
+            <Select value={roleFilter} onValueChange={setRoleFilter}>
+              <SelectTrigger className="w-48">
+                <SelectValue placeholder="Filter by role" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">All Roles</SelectItem>
+                <SelectItem value="Batsman">Batsman</SelectItem>
+                <SelectItem value="Bowler">Bowler</SelectItem>
+                <SelectItem value="All-rounder">All-rounder</SelectItem>
+                <SelectItem value="Wicket-keeper">Wicket-keeper</SelectItem>
+              </SelectContent>
+            </Select>
 
-              <Select value={sortBy} onValueChange={setSortBy}>
-                <SelectTrigger className="w-48">
-                  <SelectValue placeholder="Sort by" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="battingAverage">Batting Average</SelectItem>
-                  <SelectItem value="bowlingAverage">Bowling Average</SelectItem>
-                  <SelectItem value="matchesPlayed">Matches Played</SelectItem>
-                  <SelectItem value="name">Name</SelectItem>
-                </SelectContent>
-              </Select>
-
-              <Select value={opponentFilter} onValueChange={setOpponentFilter}>
-                <SelectTrigger className="w-48">
-                  <SelectValue placeholder="Filter by opponent" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="all">All Opponents</SelectItem>
-                  {opponents.map((opponent) => (
-                    <SelectItem key={opponent} value={opponent}>
-                      vs {opponent}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-
-              <div className="flex items-center space-x-2">
-                <Switch id="recent-form" checked={showRecentForm} onCheckedChange={setShowRecentForm} />
-                <Label htmlFor="recent-form" className="text-sm">
-                  Recent Form (Last 5 matches)
-                </Label>
-              </div>
-            </div>
+            <Select value={sortBy} onValueChange={setSortBy}>
+              <SelectTrigger className="w-48">
+                <SelectValue placeholder="Sort by" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="battingAverage">Batting Average</SelectItem>
+                <SelectItem value="bowlingAverage">Bowling Average</SelectItem>
+                <SelectItem value="matchesPlayed">Matches Played</SelectItem>
+                <SelectItem value="name">Name</SelectItem>
+              </SelectContent>
+            </Select>
           </div>
         </CardHeader>
         <CardContent>
@@ -239,20 +221,20 @@ export function PlayerStatistics() {
                   </div>
                 </div>
                 <div className="flex gap-6 text-sm">
-                  {player.battingAverage && (
+                  {player.stats?.[format]?.battingAverage !== undefined && (
                     <div className="text-center">
-                      <div className="font-bold">{player.battingAverage}</div>
+                      <div className="font-bold">{player.stats[format].battingAverage}</div>
                       <div className="text-muted-foreground">Bat Avg</div>
                     </div>
                   )}
-                  {player.bowlingAverage && (
+                  {player.stats?.[format]?.bowlingAverage !== undefined && (
                     <div className="text-center">
-                      <div className="font-bold">{player.bowlingAverage}</div>
+                      <div className="font-bold">{player.stats[format].bowlingAverage}</div>
                       <div className="text-muted-foreground">Bowl Avg</div>
                     </div>
                   )}
                   <div className="text-center">
-                    <div className="font-bold">{player.matchesPlayed}</div>
+                    <div className="font-bold">{player.stats?.[format]?.matchesPlayed ?? 0}</div>
                     <div className="text-muted-foreground">Matches</div>
                   </div>
                 </div>

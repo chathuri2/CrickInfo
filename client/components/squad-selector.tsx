@@ -187,11 +187,13 @@ export function SquadSelector() {
           <div className="grid md:grid-cols-2 gap-4">
             {filteredPlayers.map((player) => (
               <PlayerCard
-                key={player.id}
-                player={player}
-                onToggleSelect={togglePlayerSelection}
-                isDisabled={isSquadFull}
-              />
+              key={player.id}
+              player={player}
+              onToggleSelect={togglePlayerSelection}
+              isDisabled={isSquadFull}
+              // Add this line to pass the selected format
+              matchFormat={matchConditions.format.toLowerCase() as 't20' | 'odi' | 'test'}
+            />
             ))}
           </div>
         </div>

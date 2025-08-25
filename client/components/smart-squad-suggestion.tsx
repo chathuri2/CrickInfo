@@ -65,27 +65,27 @@ export function SmartSquadSuggestion({ players, conditions, onApplySuggestion }:
     const batsmen = allPlayers.filter((p) => p.role === "Batsman")
     const allRounders = allPlayers.filter((p) => p.role === "All-rounder")
     const bowlers = allPlayers.filter((p) => p.role === "Bowler")
-    const wicketKeepers = allPlayers.filter((p) => p.role === "Wicket-keeper")
+    const keeperBatsmen = allPlayers.filter((p) => p.role === "Wicket-keeper")
 
     // Define required counts
-    const BATSMEN_COUNT = 5
+    const BATSMEN_COUNT = 4
+    const KEEPER_COUNT = 1
     const ALLROUNDER_COUNT = 2
     const BOWLER_COUNT = 4
-    const WICKET_KEEPER_COUNT = 1
-    const EXTRAS_COUNT = 3 // Extras after wicket-keeper
+    const EXTRAS_COUNT = 4
 
     // Select players randomly per role
     const selectedBatsmen = randomPick(batsmen, BATSMEN_COUNT)
+    const selectedKeeper = randomPick(keeperBatsmen, KEEPER_COUNT)
     const selectedAllRounders = randomPick(allRounders, ALLROUNDER_COUNT)
     const selectedBowlers = randomPick(bowlers, BOWLER_COUNT)
-    const selectedWicketKeepers = randomPick(wicketKeepers, WICKET_KEEPER_COUNT)
 
     // Collect already selected player IDs to avoid duplicates
     const selectedIds = new Set<string>([
       ...selectedBatsmen.map((p) => p.id),
+      ...selectedKeeper.map((p) => p.id),
       ...selectedAllRounders.map((p) => p.id),
       ...selectedBowlers.map((p) => p.id),
-      ...selectedWicketKeepers.map((p) => p.id),
     ])
 
     // From remaining players (not selected), pick extras
@@ -93,7 +93,13 @@ export function SmartSquadSuggestion({ players, conditions, onApplySuggestion }:
     const selectedExtras = randomPick(remainingPlayers, EXTRAS_COUNT)
 
     // Compose final team
-    selected.push(...selectedBatsmen, ...selectedAllRounders, ...selectedBowlers, ...selectedWicketKeepers, ...selectedExtras)
+    selected.push(
+      ...selectedBatsmen,
+      ...selectedKeeper,
+      ...selectedAllRounders,
+      ...selectedBowlers,
+      ...selectedExtras
+    )
 
     // Safety: Limit to 11 players if somehow exceeded
     return selected.slice(0, 11)
@@ -115,7 +121,7 @@ export function SmartSquadSuggestion({ players, conditions, onApplySuggestion }:
     )
 
     reasons.push(
-      `Team composition: ${roleCount.Batsman || 0} batsmen, ${roleCount.Bowler || 0} bowlers, ${roleCount["All-rounder"] || 0} all-rounders, ${roleCount["Wicket-keeper"] || 0} wicket-keeper`,
+      `Team composition: ${roleCount.Batsman || 0} batsmen, ${roleCount.Bowler || 0} bowlers, ${roleCount["All-rounder"] || 0} all-rounders, ${roleCount["Wicket-keeper"] || 0} wicket-keeper`
     )
 
     if (conditions.format === "T20") {
@@ -128,7 +134,6 @@ export function SmartSquadSuggestion({ players, conditions, onApplySuggestion }:
   }
 
   const calculateConfidence = (selectedPlayers: Player[], conditions: MatchConditions): number => {
-    // Simple confidence calculation based on team balance and player quality
     const hasWicketKeeper = selectedPlayers.some((p) => p.role === "Wicket-keeper")
     const hasBalancedRoles =
       selectedPlayers.filter((p) => p.role === "Batsman").length >= 3 &&
