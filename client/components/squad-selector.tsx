@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useMemo } from "react"
+import { useState, useMemo, useEffect } from "react"
 import type { Player } from "../types/player"
 import { playersDatabase } from "../data/players"
 import { PlayerCard } from "./player-card"
